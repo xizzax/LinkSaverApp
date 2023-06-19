@@ -19,6 +19,7 @@ export default function Card(props) {
   );
 }
 
+// moved to linux
 const styles = StyleSheet.create({
   card: {
     padding: 1,
