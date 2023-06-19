@@ -2,8 +2,10 @@ import {StyleSheet} from 'react-native';
 import {useColorScheme} from 'react-native';
 import Colors from './colors';
 
+let darkMode;
 function placeholder() {
   const isDarkMode = useColorScheme() === 'dark';
+  darkMode = isDarkMode;
 }
 
 const globalstyles = StyleSheet.create({
@@ -12,6 +14,8 @@ const globalstyles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     margin: 18,
+    textAlign:"center",
+    color: darkMode ? Colors.white : Colors.black
   },
   textinputs: {
     borderColor: "#777",
