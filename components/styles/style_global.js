@@ -21,9 +21,10 @@ const globalstyles = StyleSheet.create({
     borderColor: "#777",
     borderWidth: 2,
     margin: 5,
-    padding: 2,
+    padding: 5,
     height: 40,
     borderRadius: 4,
+    fontSize: 18
   }
 });
 

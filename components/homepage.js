@@ -9,12 +9,13 @@ import {
   Modal,
 } from 'react-native';
 // import { MaterialIcons } from "@expo/vector-icons";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from './styles/colors';
 import globalstyles from './styles/style_global';
 import {useColorScheme} from 'react-native';
 import {useEffect, useState} from 'react';
 import Card from './card';
+import AddLinkForm from './add_form';
 //figure out a way to get username
 let darkModeG;
 export default function Homepage(props) {
@@ -22,11 +23,10 @@ export default function Homepage(props) {
 
   //dealing with dark mode
   const isDarkMode = useColorScheme() === 'dark';
-  
 
   const [darkMode, setDarkMode] = useState(isDarkMode);
 
-  useEffect(()=>{
+  useEffect(() => {
     setDarkMode(isDarkMode);
     darkModeG = darkMode;
   }, [isDarkMode]);
@@ -79,6 +79,16 @@ export default function Homepage(props) {
     },
   ]);
 
+  const addLink = linkObj => {
+    let key = lastKey + 1;
+    setLastKey(key);
+    linkObj.key = lastKey;
+    setLinks(currentLinks => {
+      return [linkObj, ...currentLinks];
+    });
+    setModalOpen(false);
+  };
+
   const [lastKey, setLastKey] = useState(8);
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -90,35 +100,33 @@ export default function Homepage(props) {
           Welcome to {username}'s LinkSaver!
         </Text>
       </View>
+
       {/* <ScrollView > */}
       <View style={styles.listContainer}>
         <ScrollView>
-
-          <Modal visible={modalOpen}>
-            <View style={styles.modalContent}>
-              <Text >Modal here</Text>
-            </View>
+          <Modal visible={modalOpen} style={styles.modal}>
             <View style={styles.closeBtn}>
-            <Icon
-            name="window-close"
-            size={30}
-            onPress={()=>setModalOpen(false)}
-            style={{color: darkModeG ? Colors.white : Colors.black}}
-          />
+              <Icon
+                name="window-close"
+                size={30}
+                onPress={() => setModalOpen(false)}
+                style={{color: darkModeG ? Colors.white : Colors.black}}
+              />
             </View>
-            
+
+            <View>
+              <AddLinkForm addLink={addLink}/>
+            </View>
           </Modal>
 
           <View style={styles.addCard}>
-          <Icon
-            name="plus"
-            size={24}
-            onPress={()=>setModalOpen(true)}
-            style={styles.addBtn}
-          />
+            <Icon
+              name="plus"
+              size={24}
+              onPress={() => setModalOpen(true)}
+              style={styles.addBtn}
+            />
           </View>
-          
-          
 
           {links.map(item => {
             return (
@@ -158,7 +166,6 @@ const styles = StyleSheet.create({
   mainView: {
     // flex: 1,
     backgroundColor: darkModeG ? Colors.darker : Colors.lighter,
-
   },
   headerView: {
     // flexBasis:"30%",
@@ -185,23 +192,30 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     margin: 10,
   },
-  addCard:{
-    alignItems: "center",
-    justifyContent: "center",
-    borderColor: "black",
+  addCard: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: 'black',
     borderRadius: 10,
-    borderStyle: "dashed",
+    borderStyle: 'dashed',
     padding: 20,
     borderWidth: 2,
     margin: 10,
     padding: 20,
-    
   },
-  addBtn:{
-    color: darkModeG ? Colors.white : Colors.black
+  addBtn: {
+    color: darkModeG ? Colors.white : Colors.black,
   },
-  closeBtn:{
-    alignItems: "center",
-    justifyContent: "center",
-  }
+  closeBtn: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 15,
+    marginTop: 20,
+  },
+  modal: {
+    // alignItems: 'center',
+    justifyContent: 'space-between',
+    // flex: 1,
+    flexDirection: 'row',
+  },
 });
