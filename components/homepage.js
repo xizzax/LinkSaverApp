@@ -7,6 +7,7 @@ import {
   View,
   ToastAndroid,
   Modal,
+  Pressable,
 } from 'react-native';
 // import { MaterialIcons } from "@expo/vector-icons";
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -115,18 +116,19 @@ export default function Homepage(props) {
             </View>
 
             <View>
-              <AddLinkForm addLink={addLink}/>
+              <AddLinkForm addLink={addLink} />
             </View>
           </Modal>
 
-          <View style={styles.addCard}>
-            <Icon
-              name="plus"
-              size={24}
-              onPress={() => setModalOpen(true)}
-              style={styles.addBtn}
-            />
-          </View>
+          <Pressable onPress={()=>setModalOpen(true)}>
+            <View style={styles.addCard}>
+              <Icon
+                name="plus"
+                size={24}
+                style={styles.addBtn}
+              />
+            </View>
+          </Pressable>
 
           {links.map(item => {
             return (

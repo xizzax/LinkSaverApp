@@ -6,57 +6,12 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
 import Colors from './components/styles/colors';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {StyleSheet, useColorScheme, View} from 'react-native';
 
-// import {
-//   Colors,
-//   DebugInstructions,
-//   Header,
-//   LearnMoreLinks,
-//   ReloadInstructions,
-// } from 'react-native/Libraries/NewAppScreen';
 import Homepage from './components/homepage';
-
-// type SectionProps = PropsWithChildren<{
-//   title: string;
-// }>;
-
-// function Section({children, title}: SectionProps): JSX.Element {
-//   const isDarkMode = useColorScheme() === 'dark'; //how to get if dark mode
-
-//   return (
-//     <View style={styles.sectionContainer}>
-//       <Text
-//         style={[
-//           styles.sectionTitle,
-//           {
-//             color: isDarkMode ? Colors.white : Colors.black,
-//           },
-//         ]}>
-//         {title}
-//       </Text>
-//       <Text
-//         style={[
-//           styles.sectionDescription,
-//           {
-//             color: isDarkMode ? Colors.light : Colors.dark,
-//           },
-//         ]}>
-//         {children}
-//       </Text>
-//     </View>
-//   );
-// }
+import {Provider} from 'react-redux';
+import {store} from './redux/store';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -66,9 +21,11 @@ function App(): JSX.Element {
   };
 
   return (
-    <View>
-      <Homepage username="Izza" />
-    </View>
+    <Provider store={store}>
+      <View>
+        <Homepage username="Izza" />
+      </View>
+    </Provider>
   );
 }
 
@@ -90,6 +47,5 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 });
-
 
 export default App;
