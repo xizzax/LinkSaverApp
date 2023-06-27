@@ -13,6 +13,9 @@ import Homepage from './components/homepage';
 import {Provider} from 'react-redux';
 import store from './redux/link_store';
 
+
+
+
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 

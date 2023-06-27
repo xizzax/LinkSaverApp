@@ -17,6 +17,8 @@ import {useColorScheme} from 'react-native';
 import {useEffect, useState} from 'react';
 import Card from './card';
 import AddLinkForm from './add_form';
+import { useDispatch, useSelector } from 'react-redux';
+import { addLinkAction } from '../redux/link_manager';
 //figure out a way to get username
 let darkModeG;
 export default function Homepage(props) {
@@ -37,60 +39,58 @@ export default function Homepage(props) {
   };
 
   //declaring the array of links (each in its own object)
-  const [links, setLinks] = useState([
-    {
-      name: 'Facebook',
-      link: 'https://www.facebook.com',
-      key: 1,
-    },
-    {
-      name: 'Google',
-      link: 'https://www.google.com',
-      key: 2,
-    },
-    {
-      name: 'Twitter',
-      link: 'https://www.twitter.com',
-      key: 3,
-    },
-    {
-      name: 'Instagram',
-      link: 'https://www.instagram.com',
-      key: 4,
-    },
-    {
-      name: 'ILKpop 💖',
-      link: 'https://www.ilkpop.com',
-      key: 5,
-    },
-    {
-      name: 'Yahoo',
-      link: 'https://www.yahoo.com',
-      key: 6,
-    },
-    {
-      name: 'Youtube',
-      link: 'https://www.youtube.com',
-      key: 7,
-    },
-    {
-      name: 'Gmail',
-      link: 'https://www.mail.google.com',
-      key: 8,
-    },
-  ]);
+  // const [links, setLinks] = useState([
+  //   {
+  //     name: 'Facebook',
+  //     link: 'https://www.facebook.com',
+  //     key: 1,
+  //   },
+  //   {
+  //     name: 'Google',
+  //     link: 'https://www.google.com',
+  //     key: 2,
+  //   },
+  //   {
+  //     name: 'Twitter',
+  //     link: 'https://www.twitter.com',
+  //     key: 3,
+  //   },
+  //   {
+  //     name: 'Instagram',
+  //     link: 'https://www.instagram.com',
+  //     key: 4,
+  //   },
+  //   {
+  //     name: 'ILKpop 💖',
+  //     link: 'https://www.ilkpop.com',
+  //     key: 5,
+  //   },
+  //   {
+  //     name: 'Yahoo',
+  //     link: 'https://www.yahoo.com',
+  //     key: 6,
+  //   },
+  //   {
+  //     name: 'Youtube',
+  //     link: 'https://www.youtube.com',
+  //     key: 7,
+  //   },
+  //   {
+  //     name: 'Gmail',
+  //     link: 'https://www.mail.google.com',
+  //     key: 8,
+  //   },
+  // ]);
+
+  const { links } = useSelector((state)=>state.links)
+  const dispatch = useDispatch();
 
   const addLink = linkObj => {
-    let key = lastKey + 1;
-    setLastKey(key);
-    linkObj.key = lastKey;
-    setLinks(currentLinks => {
-      return [linkObj, ...currentLinks];
-    });
+    linkObj.key = linkObj.link;
+    dispatch(addLinkAction(linkObj));
     setModalOpen(false);
   };
 
-  const [lastKey, setLastKey] = useState(8);
 
   const [modalOpen, setModalOpen] = useState(false);
 
