@@ -24,7 +24,7 @@ export const linkSlice = createSlice({
     reducers:{
         addLinkAction: (state, action)=>{
             state.links.push(action.payload) // adding the links to the top
-            addDoc(doc(db, "links"),{
+            addDoc(collection(db, "links"),{
                 name: action.payload.name,
                 link: action.payload.link,
                 key: action.payload.key
