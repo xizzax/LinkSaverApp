@@ -4,7 +4,7 @@ import icon from './srcs/l_icon.png';
 import globalstyles from './styles/style_global';
 import {disableNetwork} from 'firebase/firestore';
 
-function Login() {
+function Login({navigation}) {
   return (
     <View style={styles.mainView}>
       <View>

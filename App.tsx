@@ -14,9 +14,7 @@ import {Provider} from 'react-redux';
 import store from './redux/link_store';
 import Login from './components/login';
 import SignUp from './components/signup';
-
-
-
+import {NavigationContainer} from '@react-navigation/native';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -26,14 +24,16 @@ function App(): JSX.Element {
   };
 
   return (
-    //this is for the redux part
-    <Provider store={store}>
-      <View>
-        {/* <Login /> */}
-        <SignUp />
-        {/* <Homepage username="Izza" /> */}
-      </View>
-    </Provider>
+    <NavigationContainer>
+      //this is for the redux part
+      <Provider store={store}>
+        <View>
+          {/* <Login /> */}
+          <SignUp />
+          {/* <Homepage username="Izza" /> */}
+        </View>
+      </Provider>
+    </NavigationContainer>
   );
 }
 
