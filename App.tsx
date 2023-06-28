@@ -13,6 +13,7 @@ import Homepage from './components/homepage';
 import {Provider} from 'react-redux';
 import store from './redux/link_store';
 import Login from './components/login';
+import SignUp from './components/signup';
 
 
 
@@ -28,7 +29,8 @@ function App(): JSX.Element {
     //this is for the redux part
     <Provider store={store}>
       <View>
-        <Login />
+        {/* <Login /> */}
+        <SignUp />
         {/* <Homepage username="Izza" /> */}
       </View>
     </Provider>

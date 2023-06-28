@@ -15,7 +15,7 @@ const globalstyles = StyleSheet.create({
     fontSize: 20,
     margin: 18,
     textAlign:"center",
-    color: darkMode ? Colors.white : Colors.black
+    color: "black"
   },
   textinputs: {
     borderColor: "#777",
