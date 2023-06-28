@@ -12,6 +12,7 @@ import {StyleSheet, useColorScheme, View} from 'react-native';
 import Homepage from './components/homepage';
 import {Provider} from 'react-redux';
 import store from './redux/link_store';
+import Login from './components/login';
 
 
 
@@ -27,7 +28,8 @@ function App(): JSX.Element {
     //this is for the redux part
     <Provider store={store}>
       <View>
-        <Homepage username="Izza" />
+        <Login />
+        {/* <Homepage username="Izza" /> */}
       </View>
     </Provider>
   );

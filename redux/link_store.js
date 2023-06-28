@@ -4,6 +4,6 @@ import linkReducer from './link_manager';
 export default configureStore({
     reducer: {
         links: linkReducer,
-        middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false})
+        
     }
 })

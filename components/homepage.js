@@ -18,7 +18,8 @@ import {useEffect, useState} from 'react';
 import Card from './card';
 import AddLinkForm from './add_form';
 import {useDispatch, useSelector} from 'react-redux';
-import {addLinkAction, updateLinksAction} from '../redux/link_manager';
+import {addLinkAction} from '../redux/link_manager';
+import {getLinksFromFireStore} from '../redux/link_manager';
 //figure out a way to get username
 let darkModeG;
 
@@ -34,12 +35,12 @@ export default function Homepage(props) {
   const links = useSelector(state => state.links.links);
   const isLoaded = useSelector(state => state.links.isLoaded);
   const dispatch = useDispatch();
-  dispatch(updateLinksAction())
+  // dispatch(updateLinksAction())
 
 
   useEffect(() => {
-   console.log(isLoaded);
-  },[isLoaded]);
+    dispatch(getLinksFromFireStore());
+  },[dispatch, links]);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,

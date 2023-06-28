@@ -28,6 +28,18 @@ export const getLinksFromFireStore = createAsyncThunk(
   },
 );
 
+export const addLinkAction  = createAsyncThunk(
+  'links/addLinkAction',
+  async (linkObj) =>{
+    await addDoc(collection(db, 'links'), {
+      name: linkObj.name,
+      link: linkObj.link,
+      key: linkObj.key,
+    });
+    return linkObj;
+  }
+)
+
 export const linkSlice = createSlice({
   name: 'links', // name of the slice
   initialState: {
@@ -43,15 +55,15 @@ export const linkSlice = createSlice({
     isLoaded: false,
   },
   reducers: {
-    addLinkAction: async (state, action) => {
-      // state.links.push(action.payload) // adding the links to the top
-      await addDoc(collection(db, 'links'), {
-        name: action.payload.name,
-        link: action.payload.link,
-        key: action.payload.key,
-      });
-      console.log('success');
-    },
+    // addLinkAction: async (state, action) => {
+    //   // state.links.push(action.payload) // adding the links to the top
+    //   await addDoc(collection(db, 'links'), {
+    //     name: action.payload.name,
+    //     link: action.payload.link,
+    //     key: action.payload.key,
+    //   });
+    //   console.log('success');
+    // },
     // updateLinksAction: state => {
     //     //moved all this code to the thunk
     // //   try {
@@ -73,9 +85,13 @@ export const linkSlice = createSlice({
       state.links = action.payload;
       state.isLoaded = true;
     },
+    [addLinkAction.fulfilled]:(state, action)=>{
+      state.links.push(action.payload);
+      getLinksFromFireStore()
+    }
   },
 });
 
-export const {addLinkAction, updateLinksAction} = linkSlice.actions;
+// export const {addLinkAction} = linkSlice.actions;
 
 export default linkSlice.reducer;
