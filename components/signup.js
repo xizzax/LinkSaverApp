@@ -1,32 +1,45 @@
-import {StyleSheet, TextInput, View, Text, Image} from 'react-native';
+import {StyleSheet, TextInput, View, Text, Image, ToastAndroid} from 'react-native';
 import Btn from './login_btn';
 import icon from './srcs/l_icon.png';
 import globalstyles from './styles/style_global';
 import {disableNetwork} from 'firebase/firestore';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import AuthForm from './signin_form';
 
-function Login({navigation}) {
-  return (
+function SignUp({navigation}) {
+  const auth = getAuth();
+  const CreateNewAccount = (email, password) => {
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      console.log("successful account creation");
+    })
+    .catch((error)=>{
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    })
+  }
+  return ( 
     <View style={styles.mainView}>
-      <View>
-        <View style={styles.imageview}>
-          <Image source={icon} />
-        </View>
-        <Text style={styles.header}>Welcome to Izza's Linktree Clone!</Text>
+    <View>
+      <View style={styles.imageview}>
+        <Image source={icon} />
       </View>
-      <View style={styles.inputView}>
-      <AuthForm 
-     btnTitle={"Login"}
-     formAuthHandler={()=>{ToastAndroid.show("successful", ToastAndroid.SHORT)}}/>
-     
-        <View style={styles.buttonView}>
-          <Btn title="Sign Up Instead" onPress={() => {navigation.navigate('SignUp')}} />
-        </View>
+      <Text style={styles.header}>Welcome to Izza's Linktree Clone!</Text>
+    </View>
+    <View style={styles.inputView}>
+      {/* <Text style={styles.login_text}>Login</Text> */}
+     <AuthForm 
+     btnTitle={"Sign Up"}
+     formAuthHandler={CreateNewAccount}/>
+      <View style={styles.buttonView}>
+        <Btn title="Login Instead" onPress={() => {navigation.navigate("Login")}} />
       </View>
     </View>
-  );
+  </View>
+    );
 }
-export default Login;
+export default SignUp;
 
 const styles = StyleSheet.create({
   mainView: {
