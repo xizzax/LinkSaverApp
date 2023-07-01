@@ -4,8 +4,21 @@ import icon from './srcs/l_icon.png';
 import globalstyles from './styles/style_global';
 import {disableNetwork} from 'firebase/firestore';
 import AuthForm from './signin_form';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 function Login({navigation}) {
+  const auth = getAuth();
+  const SignInExistingUser = (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      console.log("successful sign in ");
+    })
+    .catch((error)=>{
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    })
+  }
   return (
     <View style={styles.mainView}>
       <View>
@@ -17,7 +30,7 @@ function Login({navigation}) {
       <View style={styles.inputView}>
       <AuthForm 
      btnTitle={"Login"}
-     formAuthHandler={()=>{ToastAndroid.show("successful", ToastAndroid.SHORT)}}/>
+     formAuthHandler={SignInExistingUser}/>
      
         <View style={styles.buttonView}>
           <Btn title="Sign Up Instead" onPress={() => {navigation.navigate('SignUp')}} />
