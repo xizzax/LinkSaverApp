@@ -24,7 +24,6 @@ import {getLinksFromFireStore} from '../redux/link_manager';
 let darkModeG;
 
 export default function Homepage(props) {
-  const {username} = props;
 
   //dealing with dark mode
   const isDarkMode = useColorScheme() === 'dark';
@@ -60,7 +59,7 @@ export default function Homepage(props) {
     <View style={styles.mainView}>
       <View style={styles.headerView}>
         <Text style={globalstyles.header}>
-          Welcome to {username}'s LinkSaver!
+          Welcome to LinkSaver!
         </Text>
       </View>
 

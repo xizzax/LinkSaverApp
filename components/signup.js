@@ -6,6 +6,8 @@ import {disableNetwork} from 'firebase/firestore';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import AuthForm from './signin_form';
 import { useSelector, useDispatch } from 'react-redux';
+import { setUser } from '../redux/link_manager';
+
 
 function SignUp({navigation}) {
   const auth = getAuth();

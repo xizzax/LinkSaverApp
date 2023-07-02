@@ -6,7 +6,7 @@ export default function Btn(props){
     const onPressFtn = props.onPress;
     return (
         <Pressable style={styles.btn} onPress={()=>{
-            ToastAndroid.show("successful", ToastAndroid.SHORT)
+            // ToastAndroid.show("successful", ToastAndroid.SHORT)
             onPressFtn();
         }}>
             <Text style={styles.btn_text}>{title}</Text>

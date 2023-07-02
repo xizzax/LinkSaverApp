@@ -6,6 +6,7 @@ import {disableNetwork} from 'firebase/firestore';
 import AuthForm from './signin_form';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useSelector, useDispatch } from 'react-redux';
+import { setUser } from '../redux/link_manager';
 
 function Login({navigation}) {
   const auth = getAuth();
@@ -17,8 +18,8 @@ function Login({navigation}) {
     //firebase authentication
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      console.log("Logged In!");
       dispatch(setUser(userCredential.user.email));
+      console.log("Logged In!");
       //navigating to homepage
       navigation.navigate("HomePage");
     })

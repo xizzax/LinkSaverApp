@@ -65,6 +65,6 @@ export const linkSlice = createSlice({
   },
 });
 
-// export const {addLinkAction} = linkSlice.actions;
+export const  { setUser } = linkSlice.actions;
 
 export default linkSlice.reducer;
