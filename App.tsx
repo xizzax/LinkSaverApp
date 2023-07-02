@@ -37,6 +37,7 @@ function App(): JSX.Element {
             name="SignUp"
             component={SignUp}          />
           <Stack.Screen name="Login" component={Login}/>
+          <Stack.Screen name="HomePage" component={Homepage} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

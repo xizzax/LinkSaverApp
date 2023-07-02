@@ -5,13 +5,22 @@ import globalstyles from './styles/style_global';
 import {disableNetwork} from 'firebase/firestore';
 import AuthForm from './signin_form';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useSelector, useDispatch } from 'react-redux';
 
 function Login({navigation}) {
   const auth = getAuth();
+  const user = useSelector(state => state.links.user);
+  const dispatch = useDispatch();
+
+  //logging in existing user
   const SignInExistingUser = (email, password) => {
+    //firebase authentication
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      console.log("successful sign in ");
+      console.log("Logged In!");
+      dispatch(setUser(userCredential.user.email));
+      //navigating to homepage
+      navigation.navigate("HomePage");
     })
     .catch((error)=>{
       const errorCode = error.code;

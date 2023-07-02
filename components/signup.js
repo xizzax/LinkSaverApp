@@ -5,13 +5,22 @@ import globalstyles from './styles/style_global';
 import {disableNetwork} from 'firebase/firestore';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import AuthForm from './signin_form';
+import { useSelector, useDispatch } from 'react-redux';
 
 function SignUp({navigation}) {
   const auth = getAuth();
+  const user = useSelector(state => state.links.user);
+  const dispatch = useDispatch();
+
+  //creating a new account
   const CreateNewAccount = (email, password) => {
+    //using firebase authentication
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      console.log("successful account creation");
+      console.log("Account Created!");
+      dispatch(setUser(userCredential.user.email));
+      //logging in and navigating to homepage
+      navigation.navigate("HomePage");
     })
     .catch((error)=>{
       const errorCode = error.code;

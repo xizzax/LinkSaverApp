@@ -44,41 +44,14 @@ export const linkSlice = createSlice({
   name: 'links', // name of the slice
   initialState: {
     // the initial state
-    links: [
-      // we're storing our links as an array of js objects
-      {
-        name: 'Google',
-        link: 'https://www.google.com',
-        key: 'https://www.google.com',
-      },
-    ],
+    user: null, //we can use the user email to create a collection for each user
+    links: [],
     isLoaded: false,
   },
   reducers: {
-    // addLinkAction: async (state, action) => {
-    //   // state.links.push(action.payload) // adding the links to the top
-    //   await addDoc(collection(db, 'links'), {
-    //     name: action.payload.name,
-    //     link: action.payload.link,
-    //     key: action.payload.key,
-    //   });
-    //   console.log('success');
-    // },
-    // updateLinksAction: state => {
-    //     //moved all this code to the thunk
-    // //   try {
-    // //     const query = await getDocs(collection(db, 'links'));
-    // //     let links = [];
-    // //     query.forEach(doc => {
-    // //       links.push(doc.data());
-    // //     });
-    // //     state.links = links;
-    // //     isLoaded = true;
-    // //   } catch (error) {
-    // //     console.log(error);
-    // //   }
-
-    // },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    }
   },
   extraReducers: {
     [getLinksFromFireStore.fulfilled]: (state, action) => {
