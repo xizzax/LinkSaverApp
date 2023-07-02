@@ -19,7 +19,7 @@ const db = getFirestore(app);
 export const getLinksFromFireStore = createAsyncThunk(
   'links/getLinksFromFireStore',
   async () => {
-    const query = await getDocs(collection(db, 'links'));
+    const query = await getDocs(collection(db, state.user));
     let links = [];
     query.forEach(doc => {
       links.push(doc.data());
@@ -31,7 +31,7 @@ export const getLinksFromFireStore = createAsyncThunk(
 export const addLinkAction  = createAsyncThunk(
   'links/addLinkAction',
   async (linkObj) =>{
-    await addDoc(collection(db, 'links'), {
+    await addDoc(collection(db, state.user), {
       name: linkObj.name,
       link: linkObj.link,
       key: linkObj.key,

@@ -9,15 +9,16 @@ import React from 'react';
 import Colors from './components/styles/colors';
 import {StyleSheet, useColorScheme, View} from 'react-native';
 
-
 import Homepage from './components/homepage';
-import {Provider} from 'react-redux';
+import {Provider, useSelector} from 'react-redux';
 import store from './redux/link_store';
 import Login from './components/login';
 import SignUp from './components/signup';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import { TransitionSpecs } from '@react-navigation/stack';
+import {TransitionSpecs} from '@react-navigation/stack';
+import SplashScreen from './components/splash_screen';
+import WrapperComponent from './components/wrapper_component';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -27,17 +28,18 @@ function App(): JSX.Element {
   };
 
   const Stack = createNativeStackNavigator();
+
   return (
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Login"
+          initialRouteName="WrapperComponent"
           screenOptions={{headerShown: false}}>
-          <Stack.Screen
-            name="SignUp"
-            component={SignUp}          />
-          <Stack.Screen name="Login" component={Login}/>
+          <Stack.Screen name="WrapperComponent" component={WrapperComponent} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="HomePage" component={Homepage} />
+          <Stack.Screen name="SplashScreen" component={SplashScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

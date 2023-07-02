@@ -20,21 +20,17 @@ import AddLinkForm from './add_form';
 import {useDispatch, useSelector} from 'react-redux';
 import {addLinkAction} from '../redux/link_manager';
 import {getLinksFromFireStore} from '../redux/link_manager';
-//figure out a way to get username
 let darkModeG;
 
 export default function Homepage(props) {
 
-  //dealing with dark mode
   const isDarkMode = useColorScheme() === 'dark';
 
-  // const [isLoaded, setIsLoaded] = useState(false);
   const [darkMode, setDarkMode] = useState(isDarkMode);
 
   const links = useSelector(state => state.links.links);
   const isLoaded = useSelector(state => state.links.isLoaded);
   const dispatch = useDispatch();
-  // dispatch(updateLinksAction())
 
 
   useEffect(() => {
@@ -63,7 +59,6 @@ export default function Homepage(props) {
         </Text>
       </View>
 
-      {/* <ScrollView > */}
       <View style={styles.listContainer}>
         <ScrollView>
           <Modal visible={modalOpen} style={styles.modal}>
@@ -112,31 +107,25 @@ export default function Homepage(props) {
                     }}>
                     <Card name={item.name} link={item.link} />
                   </TouchableOpacity>
-                  {/* <Text style={styles.text}>{item.name}</Text> */}
                 </View>
               );
             })}
         </ScrollView>
       </View>
-      {/* </ScrollView> */}
     </View>
   );
 }
 const styles = StyleSheet.create({
   mainView: {
-    // flex: 1,
     backgroundColor: '#eee',
   },
   headerView: {
-    // flexBasis:"30%",
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 50,
     margin: 30,
   },
   listContainer: {
-    // flexBasis:"70%",
-    // paddingTop: 0,
     paddingHorizontal: 10,
     height: '70%',
     marginLeft: 10,
@@ -173,9 +162,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   modal: {
-    // alignItems: 'center',
     justifyContent: 'space-between',
-    // flex: 1,
     flexDirection: 'row',
   },
 });
