@@ -35,8 +35,8 @@ export default function Homepage(props) {
 
   useEffect(() => {
     dispatch(getLinksFromFireStore());
-  },[dispatch, links]);
-
+  },[dispatch]);
+//links
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };

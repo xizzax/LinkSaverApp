@@ -2,15 +2,19 @@ import {StyleSheet, TextInput, View, Text, Image, ToastAndroid} from 'react-nati
 import Btn from './login_btn';
 import icon from './srcs/l_icon.png';
 import globalstyles from './styles/style_global';
-import {disableNetwork} from 'firebase/firestore';
+import {disableNetwork, doc, setDoc} from 'firebase/firestore';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import AuthForm from './signin_form';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUser } from '../redux/link_manager';
+import { getFirestore, addDoc, collection } from 'firebase/firestore';
+import {app} from '../firebase/config';
+import { useNavigation } from '@react-navigation/native';
 
 
-function SignUp({navigation}) {
+function SignUp() {
   const auth = getAuth();
+  const navigation = useNavigation();
   const user = useSelector(state => state.links.user);
   const dispatch = useDispatch();
 
@@ -18,9 +22,15 @@ function SignUp({navigation}) {
   const CreateNewAccount = (email, password) => {
     //using firebase authentication
     createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+    .then(async (userCredential) => {
       console.log("Account Created!");
       dispatch(setUser(userCredential.user.email));
+      //making a new document in firestore for the user
+      const db = getFirestore(app);
+      await setDoc(doc(db, "users", userCredential.user.email), {
+        email: userCredential.user.email,
+        links: []
+      });
       //logging in and navigating to homepage
       navigation.navigate("HomePage");
     })
