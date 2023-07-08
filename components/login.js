@@ -7,14 +7,17 @@ import AuthForm from './signin_form';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useSelector, useDispatch } from 'react-redux';
 import { setUser } from '../redux/link_manager';
+import { useNavigation } from '@react-navigation/native';
 
-function Login({navigation}) {
+function Login() {
   const auth = getAuth();
+  const navigation = useNavigation();
   const user = useSelector(state => state.links.user);
   const dispatch = useDispatch();
 
   //logging in existing user
   const SignInExistingUser = (email, password) => {
+    async () => await setPersistence(auth, browserLocalPersistence);
     //firebase authentication
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {

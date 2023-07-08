@@ -14,7 +14,7 @@ export default function AuthForm({formAuthHandler, btnTitle}) {
           <View>
             <TextInput
               style={styles.textinputs}
-              placeholder="Username"
+              placeholder="Email Address"
               placeholderTextColor="#555"
               onChangeText={formikprops.handleChange('email')}
               value={formikprops.values.email}

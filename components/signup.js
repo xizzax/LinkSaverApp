@@ -3,7 +3,7 @@ import Btn from './login_btn';
 import icon from './srcs/l_icon.png';
 import globalstyles from './styles/style_global';
 import {disableNetwork, doc, setDoc} from 'firebase/firestore';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, setPersistence, browserLocalPersistence } from "firebase/auth";
 import AuthForm from './signin_form';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUser } from '../redux/link_manager';
@@ -20,6 +20,7 @@ function SignUp() {
 
   //creating a new account
   const CreateNewAccount = (email, password) => {
+    async () => await setPersistence(auth, browserLocalPersistence);
     //using firebase authentication
     createUserWithEmailAndPassword(auth, email, password)
     .then(async (userCredential) => {

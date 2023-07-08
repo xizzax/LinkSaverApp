@@ -80,6 +80,9 @@ export const linkSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    removeUser:(state)=>{
+      state.user = null;
+    }
   },
   extraReducers: {
     [getLinksFromFireStore.fulfilled]: (state, action) => {

@@ -8,6 +8,7 @@ import {
   ToastAndroid,
   Modal,
   Pressable,
+  Button,
 } from 'react-native';
 // import { MaterialIcons } from "@expo/vector-icons";
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -20,23 +21,27 @@ import AddLinkForm from './add_form';
 import {useDispatch, useSelector} from 'react-redux';
 import {addLinkAction} from '../redux/link_manager';
 import {getLinksFromFireStore} from '../redux/link_manager';
+import Btn from './login_btn';
+import {getAuth, signOut} from 'firebase/auth';
 let darkModeG;
+import {useNavigation} from '@react-navigation/native';
 
 export default function Homepage(props) {
-
   const isDarkMode = useColorScheme() === 'dark';
+  const auth = getAuth();
+  const navigation = useNavigation();
 
   const [darkMode, setDarkMode] = useState(isDarkMode);
 
   const links = useSelector(state => state.links.links);
   const isLoaded = useSelector(state => state.links.isLoaded);
+  const user = useSelector(state => state.links.user);
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     dispatch(getLinksFromFireStore());
-  },[dispatch]);
-//links
+  }, [dispatch]);
+  //links
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
@@ -54,9 +59,7 @@ export default function Homepage(props) {
   return (
     <View style={styles.mainView}>
       <View style={styles.headerView}>
-        <Text style={globalstyles.header}>
-          Welcome to LinkSaver!
-        </Text>
+        <Text style={globalstyles.header}>Welcome to LinkSaver!</Text>
       </View>
 
       <View style={styles.listContainer}>
@@ -111,6 +114,17 @@ export default function Homepage(props) {
               );
             })}
         </ScrollView>
+
+        <Btn
+          title="Logout"
+          onPress={() => {
+            // ToastAndroid.show('Logged out', ToastAndroid.SHORT);
+            signOut(auth).then(
+              ToastAndroid.show("Logged out", ToastAndroid.SHORT)
+            );
+            navigation.navigate('Login');
+          }}
+        />
       </View>
     </View>
   );
