@@ -4,10 +4,14 @@ import icon from './srcs/l_icon.png';
 import globalstyles from './styles/style_global';
 import {disableNetwork} from 'firebase/firestore';
 import AuthForm from './signin_form';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useSelector, useDispatch } from 'react-redux';
-import { setUser } from '../redux/link_manager';
-import { useNavigation } from '@react-navigation/native';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  setPersistence,
+} from 'firebase/auth';
+import {useSelector, useDispatch} from 'react-redux';
+import {setUser} from '../redux/link_manager';
+import {useNavigation} from '@react-navigation/native';
 
 function Login() {
   const auth = getAuth();
@@ -17,21 +21,22 @@ function Login() {
 
   //logging in existing user
   const SignInExistingUser = (email, password) => {
-    async () => await setPersistence(auth, browserLocalPersistence);
     //firebase authentication
     signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      dispatch(setUser(userCredential.user.email));
-      console.log("Logged In!");
-      //navigating to homepage
-      navigation.navigate("HomePage");
-    })
-    .catch((error)=>{
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-    })
-  }
+      .then(userCredential => {
+        dispatch(setUser(userCredential.user.email));
+        console.log('Logged In!');
+
+        //navigating to homepage
+        navigation.navigate('HomePage');
+      })
+      .catch(error => {
+        e;
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  };
   return (
     <View style={styles.mainView}>
       <View>
@@ -41,12 +46,15 @@ function Login() {
         <Text style={styles.header}>Welcome to Izza's Linktree Clone!</Text>
       </View>
       <View style={styles.inputView}>
-      <AuthForm 
-     btnTitle={"Login"}
-     formAuthHandler={SignInExistingUser}/>
-     
+        <AuthForm btnTitle={'Login'} formAuthHandler={SignInExistingUser} />
+
         <View style={styles.buttonView}>
-          <Btn title="Sign Up Instead" onPress={() => {navigation.navigate('SignUp')}} />
+          <Btn
+            title="Sign Up Instead"
+            onPress={() => {
+              navigation.navigate('SignUp');
+            }}
+          />
         </View>
       </View>
     </View>
@@ -90,8 +98,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'black',
   },
-  buttonView:{
-    marginTop:10
+  buttonView: {
+    marginTop: 10,
   },
   textinputs: {
     borderColor: '#777',

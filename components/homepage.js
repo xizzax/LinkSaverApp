@@ -8,9 +8,7 @@ import {
   ToastAndroid,
   Modal,
   Pressable,
-  Button,
 } from 'react-native';
-// import { MaterialIcons } from "@expo/vector-icons";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from './styles/colors';
 import globalstyles from './styles/style_global';
@@ -19,7 +17,7 @@ import {useEffect, useState} from 'react';
 import Card from './card';
 import AddLinkForm from './add_form';
 import {useDispatch, useSelector} from 'react-redux';
-import {addLinkAction} from '../redux/link_manager';
+import {addLinkAction, setUser} from '../redux/link_manager';
 import {getLinksFromFireStore} from '../redux/link_manager';
 import Btn from './login_btn';
 import {getAuth, signOut} from 'firebase/auth';
@@ -120,7 +118,8 @@ export default function Homepage(props) {
           onPress={() => {
             // ToastAndroid.show('Logged out', ToastAndroid.SHORT);
             signOut(auth).then(
-              ToastAndroid.show("Logged out", ToastAndroid.SHORT)
+              ToastAndroid.show('Logged out', ToastAndroid.SHORT),
+              dispatch(setUser(null)),
             );
             navigation.navigate('Login');
           }}

@@ -33,7 +33,7 @@ function App(): JSX.Element {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="WrapperComponent"
+          initialRouteName="SplashScreen"
           screenOptions={{headerShown: false}}>
           <Stack.Screen name="WrapperComponent" component={WrapperComponent} />
           <Stack.Screen name="SignUp" component={SignUp} />

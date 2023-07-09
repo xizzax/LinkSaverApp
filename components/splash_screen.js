@@ -1,16 +1,42 @@
 import {View, Text, StyleSheet, Image} from 'react-native';
 import logo from './srcs/l_icon.png';
 import AnimatedLoader from 'react-native-animated-loader';
+import React, {useEffect, useState} from 'react';
+import {getAuth, onAuthStateChanged} from 'firebase/auth';
+import Homepage from './homepage';
+import Login from './login';
+import {useDispatch} from 'react-redux';
+import {setUser} from '../redux/link_manager';
 
 export default function SplashScreen() {
-  return (
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const disp = useDispatch();
+
+  useEffect(
+    ()=>{
+      const subscriber = onAuthStateChanged(getAuth(), (user) => {
+        if (user) {
+          console.log("user: ", user);
+          setIsLoggedIn(true);
+          setIsLoaded(true);
+          disp(setUser(user.email));
+        } else {
+          setIsLoggedIn(false);
+          setIsLoaded(true);
+        }
+      }
+      );
+    },[disp]
+  )
+
+  
+  return isLoaded === false ? (
     <View style={styles.container}>
       <View style={styles.imgView}>
         <Image source={logo} style={styles.img} />
         <Text style={styles.text}>Linktree Clone</Text>
       </View>
-
-      
 
       <View style={styles.loaderView}>
         <AnimatedLoader
@@ -23,6 +49,10 @@ export default function SplashScreen() {
         />
       </View>
     </View>
+  ) : isLoggedIn === true ? (
+    <Homepage />
+  ) : (
+    <Login />
   );
 }
 
@@ -50,9 +80,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#000',
-    marginTop: 15
-
+    marginTop: 15,
   },
-  img: {
-  },
+  img: {},
 });
