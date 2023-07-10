@@ -11,7 +11,6 @@ import {
   Alert,
   Dimensions,
 } from 'react-native';
-import {Button, Div} from 'react-native-magnus';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from './styles/colors';
 import globalstyles from './styles/style_global';
@@ -26,6 +25,7 @@ import Btn from './login_btn';
 import {getAuth, signOut} from 'firebase/auth';
 let darkModeG;
 import {useNavigation} from '@react-navigation/native';
+import {Button} from 'react-native-paper';
 
 export default function Homepage(props) {
   const width = Dimensions.get('window').width;
@@ -117,42 +117,8 @@ export default function Homepage(props) {
               );
             })}
         </ScrollView>
-        {/* 
-        <Btn
-          title="Logout"
-          onPress={() => {
-            // ToastAndroid.show('Logged out', ToastAndroid.SHORT);
-            signOut(auth).then(
-              ToastAndroid.show('Logged out', ToastAndroid.SHORT),
-              dispatch(setUser(null)),
-            );
-            navigation.navigate('Login');
-          }}
-        /> */}
 
-        {/* <Div
-          row
-          flexWrap="wrap"
-          justifyContent="center"
-          alignItems="center"
-          mt="lg">
-          <Button
-            bg="black"
-            shadow={3}
-            onPress={() => {
-              // ToastAndroid.show('Logged out', ToastAndroid.SHORT);
-              //   signOut(auth).then(
-              //     ToastAndroid.show('Logged out', ToastAndroid.SHORT),
-              //     dispatch(setUser(null)),
-              //   );
-              //   navigation.navigate('Login');
-              //
-              Alert.alert("pressed")
-            }}>
-             <Text style={{color: 'white'}}> Logout </Text> 
-          </Button>
-        </Div> */}
-        <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
+        {/* <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
           <TouchableOpacity
             style={{
               backgroundColor: '#000',
@@ -171,7 +137,31 @@ export default function Homepage(props) {
                 navigation.navigate('Login');
             }}>
             <Text style={{color: 'white'}}> Logout </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+        {/* </View> */}
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 10,
+          }}>
+          <Button
+            mode="contained"
+            buttonColor="black"
+            textColor="white"
+            onPress={() => {
+              signOut(auth).then(
+                ToastAndroid.show('Logged out', ToastAndroid.SHORT),
+                dispatch(setUser(null)),
+              );
+              navigation.navigate('Login');
+            }}
+            style={{
+              borderRadius: 6,
+              width: width - 50,
+            }}>
+            Logout
+          </Button>
         </View>
       </View>
     </View>
