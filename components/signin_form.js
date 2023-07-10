@@ -78,11 +78,11 @@ const styles = StyleSheet.create({
   },
   textinputs: {
     borderColor: '#777',
-    borderWidth: 2,
+    borderWidth: 1,
     margin: 10,
     padding: 10,
     height: 45,
     borderRadius: 4,
-    fontSize: 18,
+    fontSize: 16,
   },
 });
