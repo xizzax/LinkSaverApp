@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     // marginTop: 45,
     // justifyContent: 'space-between',
     // alignItems: 'stretch',
-    backgroundColor: '#ddd',
+    backgroundColor: '#eee',
     height: '100%',
   },
   headerView: {
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     // marginTop: 10,
   },
   textinputs: {
-    borderColor: '#eee',
+    borderColor: '#fff',
     borderWidth: 1,
     // margin: 10,
     padding: 10,

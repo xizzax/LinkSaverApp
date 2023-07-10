@@ -1,5 +1,5 @@
 import {Formik} from 'formik';
-import {View, Button, StyleSheet, TextInput} from 'react-native';
+import {View, Button, StyleSheet, TextInput, Alert} from 'react-native';
 import Btn from './login_btn';
 export default function AuthForm({formAuthHandler, btnTitle}) {
   return (
@@ -7,6 +7,14 @@ export default function AuthForm({formAuthHandler, btnTitle}) {
       <Formik
         initialValues={{email: '', password: ''}}
         onSubmit={(values, actions) => {
+          if(values.email == ""){
+            Alert.alert("Error", "Please enter an email address");
+            return;
+          }
+          if(values.password == ""){
+            Alert.alert("Error", "Please enter a password");
+            return;
+          }
           formAuthHandler(values.email, values.password);
           actions.resetForm();
         }}>
@@ -84,5 +92,6 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius: 4,
     fontSize: 16,
+    backgroundColor: '#fff',
   },
 });
