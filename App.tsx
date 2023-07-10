@@ -19,6 +19,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {TransitionSpecs} from '@react-navigation/stack';
 import SplashScreen from './components/splash_screen';
 import WrapperComponent from './components/wrapper_component';
+import {ThemeProvider} from 'react-native-magnus';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -30,19 +31,24 @@ function App(): JSX.Element {
   const Stack = createNativeStackNavigator();
 
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="SplashScreen"
-          screenOptions={{headerShown: false}}>
-          <Stack.Screen name="WrapperComponent" component={WrapperComponent} />
-          <Stack.Screen name="SignUp" component={SignUp} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="HomePage" component={Homepage} />
-          <Stack.Screen name="SplashScreen" component={SplashScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
+    <ThemeProvider>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="SplashScreen"
+            screenOptions={{headerShown: false}}>
+            <Stack.Screen
+              name="WrapperComponent"
+              component={WrapperComponent}
+            />
+            <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="HomePage" component={Homepage} />
+            <Stack.Screen name="SplashScreen" component={SplashScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    </ThemeProvider>
   );
 }
 

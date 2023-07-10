@@ -5,8 +5,6 @@ import firebase from 'firebase/compat';
 import * as React from 'react';
 import 'firebase/compat/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {

@@ -8,7 +8,10 @@ import {
   ToastAndroid,
   Modal,
   Pressable,
+  Alert,
+  Dimensions,
 } from 'react-native';
+import {Button, Div} from 'react-native-magnus';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from './styles/colors';
 import globalstyles from './styles/style_global';
@@ -25,6 +28,8 @@ let darkModeG;
 import {useNavigation} from '@react-navigation/native';
 
 export default function Homepage(props) {
+  const width = Dimensions.get('window').width;
+  const height = Dimensions.get('window').height;
   const isDarkMode = useColorScheme() === 'dark';
   const auth = getAuth();
   const navigation = useNavigation();
@@ -112,7 +117,7 @@ export default function Homepage(props) {
               );
             })}
         </ScrollView>
-
+        {/* 
         <Btn
           title="Logout"
           onPress={() => {
@@ -123,19 +128,64 @@ export default function Homepage(props) {
             );
             navigation.navigate('Login');
           }}
-        />
+        /> */}
+
+        {/* <Div
+          row
+          flexWrap="wrap"
+          justifyContent="center"
+          alignItems="center"
+          mt="lg">
+          <Button
+            bg="black"
+            shadow={3}
+            onPress={() => {
+              // ToastAndroid.show('Logged out', ToastAndroid.SHORT);
+              //   signOut(auth).then(
+              //     ToastAndroid.show('Logged out', ToastAndroid.SHORT),
+              //     dispatch(setUser(null)),
+              //   );
+              //   navigation.navigate('Login');
+              //
+              Alert.alert("pressed")
+            }}>
+             <Text style={{color: 'white'}}> Logout </Text> 
+          </Button>
+        </Div> */}
+        <View style={{justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
+          <TouchableOpacity
+            style={{
+              backgroundColor: '#000',
+              elevation: 2, // Android
+              height: 40,
+              width: width - 50,
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'row',
+            }}
+            onPress={() => {
+                signOut(auth).then(
+                  ToastAndroid.show('Logged out', ToastAndroid.SHORT),
+                  dispatch(setUser(null)),
+                );
+                navigation.navigate('Login');
+            }}>
+            <Text style={{color: 'white'}}> Logout </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
 }
 const styles = StyleSheet.create({
   mainView: {
+    height: '100%',
     backgroundColor: '#eee',
   },
   headerView: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 30,
     margin: 30,
   },
   listContainer: {

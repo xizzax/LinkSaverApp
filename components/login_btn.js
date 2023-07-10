@@ -1,16 +1,16 @@
-import { Button, Pressable, StyleSheet, Text, ToastAndroid } from "react-native";
+import { Button, Pressable, StyleSheet, Text, ToastAndroid, TouchableOpacity } from "react-native";
 
 //making a lil button
 export default function Btn(props){
     const title = props.title;
     const onPressFtn = props.onPress;
     return (
-        <Pressable style={styles.btn} onPress={()=>{
+        <TouchableOpacity style={styles.btn} onPress={()=>{
             // ToastAndroid.show("successful", ToastAndroid.SHORT)
             onPressFtn();
         }}>
             <Text style={styles.btn_text}>{title}</Text>
-        </Pressable>
+        </TouchableOpacity>
     );
 }
 
