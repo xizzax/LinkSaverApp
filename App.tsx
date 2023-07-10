@@ -19,7 +19,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {TransitionSpecs} from '@react-navigation/stack';
 import SplashScreen from './components/splash_screen';
 import WrapperComponent from './components/wrapper_component';
-import {ThemeProvider} from 'react-native-magnus';
+import { PaperProvider } from 'react-native-paper';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -31,8 +31,8 @@ function App(): JSX.Element {
   const Stack = createNativeStackNavigator();
 
   return (
-    <ThemeProvider>
       <Provider store={store}>
+        <PaperProvider>
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName="SplashScreen"
@@ -47,8 +47,8 @@ function App(): JSX.Element {
             <Stack.Screen name="SplashScreen" component={SplashScreen} />
           </Stack.Navigator>
         </NavigationContainer>
+        </PaperProvider>
       </Provider>
-    </ThemeProvider>
   );
 }
 

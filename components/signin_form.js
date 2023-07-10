@@ -1,43 +1,45 @@
 import {Formik} from 'formik';
-import {View, Button, StyleSheet, TextInput, Alert} from 'react-native';
+import {View, Button, StyleSheet, Alert} from 'react-native';
 import Btn from './login_btn';
+import {TextInput} from 'react-native-paper';
 export default function AuthForm({formAuthHandler, btnTitle}) {
   return (
     <View>
       <Formik
         initialValues={{email: '', password: ''}}
         onSubmit={(values, actions) => {
-          if(values.email == ""){
-            Alert.alert("Error", "Please enter an email address");
-            return;
-          }
-          if(values.password == ""){
-            Alert.alert("Error", "Please enter a password");
-            return;
-          }
           formAuthHandler(values.email, values.password);
           actions.resetForm();
         }}>
         {formikprops => (
           <View>
             <TextInput
-              style={styles.textinputs}
-              placeholder="Email Address"
-              placeholderTextColor="#555"
-              onChangeText={formikprops.handleChange('email')}
+              mode="outlined"
+              label="Email Address"
               value={formikprops.values.email}
+              onChangeText={formikprops.handleChange('email')}
+              style={{
+                backgroundColor: 'white',
+                marginBottom: 10,
+                fontSize: 15,
+              }}
+              activeOutlineColor="grey"
             />
             <TextInput
-              style={styles.textinputs}
-              placeholder="Password"
-              placeholderTextColor="#555"
-              secureTextEntry={true}
-              password={true}
-              onChangeText={formikprops.handleChange('password')}
+              mode="outlined"
+              label="Password"
               value={formikprops.values.password}
+              onChangeText={formikprops.handleChange('password')}
+              style={{
+                backgroundColor: 'white',
+                marginBottom: 10,
+                fontSize: 15,
+              }}
+              secureTextEntry={true}
+              activeOutlineColor="grey"
             />
-            <Btn title={btnTitle}
-            onPress={formikprops.handleSubmit} />
+
+            <Btn title={btnTitle} onPress={formikprops.handleSubmit} />
           </View>
         )}
       </Formik>
