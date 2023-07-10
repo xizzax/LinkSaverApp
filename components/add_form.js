@@ -3,13 +3,14 @@ import {
   StyleSheet,
   Text,
   Button,
-  TextInput,
+  // TextInput,
   ToastAndroid,
 } from 'react-native';
 import React from 'react';
 import globalstyles from './styles/style_global';
 import {Formik} from 'formik';
 import * as yup from 'yup';
+import {TextInput} from 'react-native-paper';
 
 const linkSchema = yup.object({
   name: yup.string().required(),

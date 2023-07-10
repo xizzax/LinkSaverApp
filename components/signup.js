@@ -10,6 +10,7 @@ import { setUser } from '../redux/link_manager';
 import { getFirestore, addDoc, collection } from 'firebase/firestore';
 import {app} from '../firebase/config';
 import { useNavigation } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
 
 
 function SignUp() {
@@ -17,10 +18,15 @@ function SignUp() {
   const navigation = useNavigation();
   const user = useSelector(state => state.links.user);
   const dispatch = useDispatch();
+  const [error, setError] = useState("")
+  const [loggingin, setLoggingin] = useState(false);
+
+
+  useEffect(()=>{}, [error])
 
   //creating a new account
   const CreateNewAccount = (email, password) => {
-    async () => await setPersistence(auth, browserLocalPersistence);
+    setLoggingin(true);
     //using firebase authentication
     createUserWithEmailAndPassword(auth, email, password)
     .then(async (userCredential) => {
@@ -39,6 +45,9 @@ function SignUp() {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
+      setLoggingin(false);
+
+      setError(errorMessage);
     })
   }
   return ( 
@@ -51,6 +60,7 @@ function SignUp() {
     </View>
     <View style={styles.inputView}>
       {/* <Text style={styles.login_text}>Login</Text> */}
+      <Text style={{color: "red"}}> {error} </Text>
      <AuthForm 
      btnTitle={"Sign Up"}
      formAuthHandler={CreateNewAccount}/>

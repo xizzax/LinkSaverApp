@@ -4,7 +4,7 @@ import icon from './srcs/l_icon.png';
 import globalstyles from './styles/style_global';
 import {disableNetwork} from 'firebase/firestore';
 import AuthForm from './signin_form';
-import { useState } from 'react';
+import {useState, useEffect} from 'react';
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -15,13 +15,15 @@ import {setUser} from '../redux/link_manager';
 import {useNavigation} from '@react-navigation/native';
 import AnimatedLoader from 'react-native-animated-loader';
 
-
 function Login() {
   const auth = getAuth();
   const navigation = useNavigation();
   const user = useSelector(state => state.links.user);
   const dispatch = useDispatch();
   const [loggingin, setLoggingin] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {}, [error]);
 
   //logging in existing user
   const SignInExistingUser = (email, password) => {
@@ -40,8 +42,8 @@ function Login() {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
-        setLoggingin(true);
-        Alert.alert('Error', 'Invalid Email or Password');
+          setLoggingin(false);
+        setError(errorMessage);
       });
   };
   if (loggingin === false) {
@@ -54,6 +56,8 @@ function Login() {
           <Text style={styles.header}>Welcome to Izza's Linktree Clone!</Text>
         </View>
         <View style={styles.inputView}>
+          <Text style={{color: 'red'}}> {error} </Text>
+
           <AuthForm btnTitle={'Login'} formAuthHandler={SignInExistingUser} />
 
           <View style={styles.buttonView}>
@@ -71,14 +75,14 @@ function Login() {
   return (
     <View style={styles.mainView}>
       <AnimatedLoader
-          source={require('./srcs/infinite-scroll-loader.json')}
-          visible={true}
-          overlayColor="rgba(150,150,150,0.25)"
-          speed={1}
-          loop={true}
-          animationStyle={styles.loader}
-        />
-      </View>
+        source={require('./srcs/infinite-scroll-loader.json')}
+        visible={true}
+        overlayColor="rgba(150,150,150,0.25)"
+        speed={1}
+        loop={true}
+        animationStyle={styles.loader}
+      />
+    </View>
   );
 }
 export default Login;

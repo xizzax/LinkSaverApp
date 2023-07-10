@@ -8,6 +8,10 @@ export default function AuthForm({formAuthHandler, btnTitle}) {
       <Formik
         initialValues={{email: '', password: ''}}
         onSubmit={(values, actions) => {
+          if (values.email === '' || values.password === '') {
+            Alert.alert('Please fill in all fields');
+            return;
+          }
           formAuthHandler(values.email, values.password);
           actions.resetForm();
         }}>
